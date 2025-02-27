@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Цены на блюда</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; background-color: #f4f4f9; }
+        h1 { color: #2c3e50; }
+        #chatbox { margin-top: 20px; padding: 10px; border: 1px solid #ccc; display: inline-block; width: 300px; background-color: #fff; box-shadow: 0px 0px 10px rgba(0,0,0,0.1); }
+        input, button { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px; }
+        button:hover { background-color: #3498db; color: white; cursor: pointer; transition: background-color 0.3s; }
+        #response { margin-top: 10px; font-weight: bold; color: #34495e; }
+    </style>
+</head>
+<body>
+    <h1>Добро пожаловать!</h1>
+    <p>Задайте вопрос о стоимости блюда, например: "Сколько стоит борщ?"</p>
+
+    <div id="chatbox">
+        <input type="text" id="userInput" placeholder="Напишите вопрос...">
+        <button onclick="sendMessage()">Спросить</button>
+        <p id="response"></p>
+    </div>
+
+    <script>
+        async function sendMessage() {
+            let userMessage = document.getElementById("userInput").value;
+            let responseBox = document.getElementById("response");
+
+            let response = await fetch("https://your-api-endpoint.com", {  // Заменим на API
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: userMessage })
+            }).then(res => res.json());
+
+            responseBox.innerText = response.reply;
+        }
+    </script>
+</body>
+</html>
